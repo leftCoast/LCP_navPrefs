@@ -156,7 +156,7 @@ void navPrefsValueField::setVarPtr(float* inVar) { ourVarPtr = inVar; }
 void navPrefsValueField::doAction(void) {
 
 	((navPrefs*)ourPanel)->editing = true;
-	ourDbox = new navPrefsEditDbox(atof(buff),ourMsg,this,sType320x480);
+	ourDbox = new valueFieldEditDbox(atof(buff),ourMsg,this,sType320x480);
 }
 
 

@@ -33,7 +33,8 @@
 #include	<blockFile.h>
 #include <fontLabel.h>
 #include <bmpFlasher.h>
-#include <navPrefsDB.h>
+#include <dispTools.h>
+//#include <navPrefsDB.h>
 
 // **********************************************************************
 // userPrefsFile
@@ -66,19 +67,17 @@ extern void savePrefs(void);
 // **********************************************************************
 
 
-class navPrefsValueField :	public navPrefsValueField {
+class navPrefsValueField :	public valueField {
 
 	public:
 				navPrefsValueField(rect* inRect,const char* inMsg);
 	virtual	~navPrefsValueField(void);
 	
-				void	setVarPtr(float* inVar);
-	virtual	void	doAction(void);
-	virtual	void	handleCom(stdComs comID);
+				void		setVarPtr(float* inVar);
+	virtual	void		doAction(void);
+	virtual	void		handleCom(stdComs comID);
 	
-				float*				ourVarPtr;
-				char*					ourMsg;
-				navPrefsEditDbox* ourDbox;
+				float*	ourVarPtr;
 };
 
 	
