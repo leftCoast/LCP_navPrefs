@@ -34,7 +34,7 @@
 #include <fontLabel.h>
 #include <bmpFlasher.h>
 #include <dispTools.h>
-//#include <navPrefsDB.h>
+
 
 // **********************************************************************
 // userPrefsFile
