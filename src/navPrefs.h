@@ -120,7 +120,6 @@ class navPrefs	: public panel {
 				prefsField*	anchScopeLbl;
 				prefsField*	anchMarginLbl;
 				bmpFlasher*	streamBtn;
-				int			line;
 };
 
 

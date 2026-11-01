@@ -11,7 +11,7 @@
 #define	LABEL_FONT		AFF_SANS_BOLD_9_OB
 #define	LABEL_COLOR		&yellow
 
-#define SETTINGS_X	60	// 95 x 26 pix
+#define SETTINGS_X	60
 #define SETTINGS_Y	16		
 
 
@@ -182,13 +182,12 @@ void prefsField::updateValue(const char* newValue) {
 navPrefs::navPrefs(int newAppID)
 	: panel(newAppID) {
  
-  	checkTimer		= new timeObj(200);
+  	checkTimer		= new timeObj(100);
 	timeOffsetLbl	= NULL;
 	magCorrectLbl	= NULL;
 	anchScopeLbl	= NULL;
 	anchMarginLbl	= NULL;
 	streamBtn		= NULL;
-	line				= 0;
 }
 
 
@@ -357,16 +356,11 @@ void navPrefs::checkStreaming(void) {
 void navPrefs::loop(void) {
 
 	if (checkTimer->ding()) {
-		
-		switch(line) {										// The idea here is to get better touch
-			case 0 : checkTimeOffset();	break;	// Response by doing these one at a time.
-			case 1 : checkMagCorrect();	break;
-			case 2 : checkAnchorScope();	break;
-			case 3 : checkAnchorMargin();	break;
-			case 4 : checkStreaming();		break;
-		}
-		line++;
-		if (line>4) line = 0;
+		checkTimeOffset();
+		checkMagCorrect();
+		checkAnchorScope();
+		checkAnchorMargin();
+		checkStreaming();
 		checkTimer->start();
 	}
 }
