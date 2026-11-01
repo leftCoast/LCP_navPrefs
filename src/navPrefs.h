@@ -42,11 +42,11 @@
 
 extern blockFile*	prefsFile;
 		
-extern float		timeOffset;
-extern float		magCorrect;
-extern float		scopeValue;
-extern float		anchorMargin;
-extern bool			streaming;
+extern float	timeOffset;
+extern float	magCorrect;
+extern float	scopeValue;
+extern float	anchorMargin;
+extern bool		streaming;
 
 
 // Set the prefs file. Creates new one if none available. This needs to be called by the
@@ -63,21 +63,31 @@ extern void savePrefs(void);
 
 
 // **********************************************************************
-// navPrefsValueField
+// prefsField
 // **********************************************************************
 
+enum prefChoice {
 
-class navPrefsValueField :	public valueField {
+	noPref,
+	timeOffsetPref,
+	magCorrectPref,
+	anchScopePref,
+	anchMarginPref,
+	streamingPref
+};
+	
+	
+	
+class prefsField :	public valueField {
 
-	public:
-				navPrefsValueField(rect* inRect,const char* inMsg);
-	virtual	~navPrefsValueField(void);
+	public:								
+				prefsField(rect* inRect,valueType inType,const char* inMsg);
+	virtual	~prefsField(void);
+
+				void		setPref(prefChoice inPref);
+	virtual	void		updateValue(const char* newValue);
 	
-				void		setVarPtr(float* inVar);
-	virtual	void		doAction(void);
-	virtual	void		handleCom(stdComs comID);
-	
-				float*	ourVarPtr;
+				prefChoice	ourPrefType;
 };
 
 	
@@ -93,25 +103,24 @@ class navPrefs	: public panel {
 					navPrefs(int newAppID);
 	virtual		~navPrefs(void);
 	
-				void	setupEditField(navPrefsValueField** inLabel,float* inVar,const char* inMsg,int offset);
-	virtual	void  setup(void);												// Run once. do your setup here.
-				void	checkTimeOffset(void);
-				void	checkMagCorrect(void);
-				void	checkAnchorScope(void);
-				void	checkAnchorMargin(void);
-				void	checkStreaming(void);
-	virtual	void  loop(void);													// Run over and over. Do stuff here.
-	virtual	void  drawSelf(void);											// If you want to draw your background, do it here.
-	virtual	void  closing(void);												// Need to save anything before closing shop? Do it here.
+				prefsField*	setupField(int inX,int inY,const char* labelTxt,const char* inMsg);
+	virtual	void  		setup(void);												// Run once. do your setup here.
+				void			checkTimeOffset(void);
+				void			checkMagCorrect(void);
+				void			checkAnchorScope(void);
+				void			checkAnchorMargin(void);
+				void			checkStreaming(void);
+	virtual	void  		loop(void);													// Run over and over. Do stuff here.
+	virtual	void  		drawSelf(void);											// If you want to draw your background, do it here.
+	virtual	void  		closing(void);												// Need to save anything before closing shop? Do it here.
 	
-				timeObj*					checkTimer;
-				navPrefsValueField*	timeOffsetLbl;
-				navPrefsValueField*	magneticCorrectionLbl;
-				navPrefsValueField*	anchorScopeLbl;
-				navPrefsValueField*	anchorMarginLbl;
-				bmpFlasher*				streamBtn;
-				int						line;
-				bool						editing;
+				timeObj*		checkTimer;
+				prefsField*	timeOffsetLbl;
+				prefsField*	magCorrectLbl;
+				prefsField*	anchScopeLbl;
+				prefsField*	anchMarginLbl;
+				bmpFlasher*	streamBtn;
+				int			line;
 };
 
 
